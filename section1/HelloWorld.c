@@ -8,10 +8,16 @@ static void *thread_fn_callback(void *arg)
     // (void *)input_data
     // this input data is avaiable to use as void *arg
     char *data = (char *)arg;
-    while (1)
+    int cnt = 0;
+    while (cnt < 5)
     {
         printf("%s\n", data);
         sleep(1);
+        if (cnt == 2)
+        {
+            pthread_exit(0);
+        }
+        cnt++;
     }
 }
 
@@ -36,7 +42,9 @@ int main(int argc, char **argv)
     printf("Main thread paused\n");
     static char *t = "Hello world";
     printf("%p\n", (void *)t);
-    pause(); // pause the main thread to prevent deletion of child threads we created
+    // pause(); // pause the main thread to prevent deletion of child threads we created
+    pthread_exit(0);
+    return 0;
 }
 
 // The -g flag is the "Debug" argument.
