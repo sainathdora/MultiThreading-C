@@ -25,7 +25,7 @@ write_to_file_fn(void *arg)
 {
 
     pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
-    pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL);
+    pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL); // deffered cancellation(99% use this)
     int *thread_id = (int *)arg;
     // add the functions(cleanup) to thread cancellation stack;
     pthread_cleanup_push(memory_cleanup_handler, arg);
@@ -41,6 +41,7 @@ write_to_file_fn(void *arg)
         // return NULL;
         pthread_exit(NULL);
     }
+
     pthread_cleanup_push(close_file_cleanup_handler, fptr);
     while (1)
     {
@@ -48,10 +49,13 @@ write_to_file_fn(void *arg)
         fwrite(string_to_write, 1, no_of_bytes, fptr);
         fflush(fptr);
         sleep(1);
+        // If cancel happens then cancel after sleep(1)
+        // check if there is a cancel signal pending, if yes then cancel;
+        pthread_testcancel(); // check if any cancellation signal pending then cancel if yes.
     }
-    pthread_cleanup_pop(0);
-    pthread_cleanup_pop(0);
     pthread_exit(NULL); // use pthread_exit() to invoke clean up functions (or) use pthread_cleanup_pop(1)
+    pthread_cleanup_pop(0);
+    pthread_cleanup_pop(0);
 }
 
 int main()
