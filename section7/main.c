@@ -51,7 +51,7 @@ write_to_file_fn(void *arg)
     }
     pthread_cleanup_pop(0);
     pthread_cleanup_pop(0);
-    return NULL;
+    pthread_exit(NULL); // use pthread_exit() to invoke clean up functions (or) use pthread_cleanup_pop(1)
 }
 
 int main()

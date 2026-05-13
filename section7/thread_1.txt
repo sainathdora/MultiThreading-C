@@ -7,11 +7,3 @@ I am Thread-1
 I am Thread-1
 I am Thread-1
 I am Thread-1
-I am Thread-1
-I am Thread-1
-I am Thread-1
-I am Thread-1
-I am Thread-1
-I am Thread-1
-I am Thread-1
-I am Thread-1

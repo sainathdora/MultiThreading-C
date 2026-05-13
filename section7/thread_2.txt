@@ -7,11 +7,3 @@ I am Thread-2
 I am Thread-2
 I am Thread-2
 I am Thread-2
-I am Thread-2
-I am Thread-2
-I am Thread-2
-I am Thread-2
-I am Thread-2
-I am Thread-2
-I am Thread-2
-I am Thread-2
